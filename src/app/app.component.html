@@ -1,0 +1,87 @@
+<mat-toolbar>
+  <mat-toolbar-row class="main-navigation px-lg-5">
+    <div class="cur d-none d-md-block">
+      <img class="mr-2" src="../assets/imgs/boards.svg" alt="boards">
+      <span class="boards">Boards</span>
+    </div>
+    <h2 class="main-logo">Nello.</h2>
+    <div class="search-div">
+        <input class="form-control" type="text" [(ngModel)]="searchFilter" placeholder="Search ...">
+        <img class="cur" src="../assets/imgs/search.svg" alt="search">
+    </div>
+    <div class="profile-div cur" [matMenuTriggerFor]="appMenu">
+        <img class="profile-img" src="../assets/imgs/profile-img.jpg" alt="profile">
+        <span class="ml-2 d-none d-sm-inline-block"><span class="hi">Hi</span>, Khaled</span>
+        <img class="ml-2" src="../assets/imgs/down-arrow.svg" alt="down">
+        <!-- Menu -->
+        <mat-menu #appMenu="matMenu" xPosition="before">
+          <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>account_circle</mat-icon>
+            <span>Profile</span>
+          </button>
+        </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="main-content">
+  <div class="nasaq-team">
+    <div class="letter">
+      N
+    </div>
+    <div class="caption">
+      <span>Nasaq Team</span>
+      <img src="../assets/imgs/down-arrow.svg" alt="down">
+      <small class="d-block">UI/UX Board</small>
+    </div>
+  </div>
+  <div class="jobs-area">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6 col-lg-3" *ngFor="let area of allAreas | areaSearch:searchFilter; let i=index;">
+          <mat-card>
+            <mat-card-title [ngClass]="area.color"><span></span>{{area.name}}</mat-card-title>
+            <mat-card-content>
+              <div class="card my-3" *ngFor="let task of area.tasks">
+                <div class="card-body py-3 px-2">
+                  <p class="card-text mb-1">{{task.name}}</p>
+                  <span class="link">
+                     <mat-icon>link</mat-icon>{{task.links}}
+                  </span>
+                </div>
+                <img src="../assets/imgs/{{task.img}}" class="card-img-top" alt="img">
+              </div>
+              <div class="card my-3 done" [ngClass]="area.bgColor">
+                done
+              </div>
+              <div class="card my-3">
+                <div class="card-body py-3 px-2">
+                  <p class="card-text mb-1">Task name</p>
+                  <span class="link">
+                      <mat-icon>link</mat-icon>3
+                  </span>
+                  <div class="people mt-2">
+                    <div class="plus cur">
+                      +
+                    </div>
+                    <img src="../assets/imgs/profile-img.jpg" alt="img">
+                    <img src="../assets/imgs/profile-img.jpg" alt="img">
+                    <img src="../assets/imgs/profile-img.jpg" alt="img">
+                    <img src="../assets/imgs/profile-img.jpg" alt="img">
+                    <div class="plus text-white" [ngClass]="area.bgColor">
+                      +4
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <mat-card matRipple [matRippleColor]="primary" class="add-card cur mb-4" (click)="addCard(i)">Add Card</mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
